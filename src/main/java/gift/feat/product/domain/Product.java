@@ -3,7 +3,6 @@ package gift.feat.product.domain;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,14 +13,13 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 public class Product {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
 	private Long price;
 	private String imageUrl;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@NotNull
+	@ManyToOne @NotNull
 	@JoinColumn(name = "category_id")
 	private Category category;
 

@@ -61,7 +61,6 @@ public class ProductService {
 		}
 		return switch (searchType) {
 			case NAME -> productRepository.findByNameContaining(searchValue, pageable);
-			case CATEGORY -> productRepository.findByCategoryName(searchValue, pageable);
 		};
 	}
 
@@ -77,7 +76,6 @@ public class ProductService {
 		existingProduct.setName(productCreateRequest.name());
 		existingProduct.setPrice(productCreateRequest.price());
 		existingProduct.setImageUrl(productCreateRequest.imageUrl());
-		existingProduct.setCategory(category);
 
 		return productRepository.save(existingProduct).getId();
 	}

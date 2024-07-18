@@ -11,7 +11,6 @@ import gift.core.exception.user.UserAlreadyExistsException;
 import gift.core.exception.user.UserNotFoundException;
 import gift.core.jwt.JwtProvider;
 import gift.feat.user.User;
-import gift.feat.user.dto.SignupRequestDto;
 import gift.feat.user.repository.UserJpaRepository;
 
 @Service
@@ -37,13 +36,13 @@ public class UserService {
 	}
 
 	@Transactional
-	public void registerUser(SignupRequestDto userDto) {
-		userJpaRepository.findByEmail(userDto.email()).ifPresent(
+	public void registerUser(User user) {
+		userJpaRepository.findByEmail(user.getEmail()).ifPresent(
 			(eUser) -> {
 				throw new UserAlreadyExistsException(eUser.getEmail());
 			}
 		);
-		userJpaRepository.save(userDto.toEntity());
+		userJpaRepository.save(user);
 	}
 
 	@Transactional(readOnly = true)
